@@ -1,3 +1,5 @@
+
+import { ApiProperty } from '@nestjs/swagger';
 import { UserEntity } from './user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -19,11 +21,12 @@ status : TodoStatus
   userId: number;
 }
 
-export enum TodoStatus{
 
-OPEN= 'OPEN',
-WIP = 'WIP',
-COMPLETED='COMPLETED'
+export  enum TodoStatus{
+
+  OPEN= 'OPEN',
+  WIP = 'WIP',
+  COMPLETED='COMPLETED'
 
 
 }

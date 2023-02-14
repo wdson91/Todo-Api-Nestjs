@@ -1,7 +1,8 @@
 import { UserEntity } from './../Entity/user.entity';
 import { User } from './../auth/user.decorator';
 import { CreateTodoDto } from './../DTO/createTodoDto';
-import { TodoEntity, TodoStatus } from 'src/Entity/todo.entity';
+import { TodoEntity,TodoStatus } from 'src/Entity/todo.entity';
+
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -68,7 +69,7 @@ async delete(id: number, user: UserEntity) {
   const result = await this.repo.delete({id, userId: user.id});
 
   if (result.affected === 0) {
-    throw new NotFoundException('Todo not deleted');
+    throw new UnauthorizedException;
   } else {
     return { success: true}
   }

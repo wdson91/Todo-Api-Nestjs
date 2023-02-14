@@ -1,5 +1,6 @@
+import { TodoStatus } from 'src/Entity/todo.entity';
 import { ArgumentMetadata, BadRequestException, PipeTransform } from "@nestjs/common";
-import { TodoStatus } from "../Entity/todo.entity";
+
 
 export class TodoStatusValidationPipe implements PipeTransform {
   readonly allowedStatus = [TodoStatus.OPEN, TodoStatus.WIP, TodoStatus.COMPLETED];

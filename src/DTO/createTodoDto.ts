@@ -5,16 +5,16 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateTodoDto{
     @ApiProperty({
-        example: 'Limpar a casa',
-        description: `Registrar o nome de  algo pendente a fazer`,
+        example: 'Nome da tarefa',
+       
       })
     @IsNotEmpty()
     @MaxLength(15, {message: 'Max length is 15 characters.'})
 
     title: string;
     @ApiProperty({
-        example: 'Limpar a casa até o meio dia',
-        description: `Descrição de  algo pendente a fazer`,
+        example: 'Descrição da tarefa',
+        
       })
     @IsNotEmpty()
     description: string

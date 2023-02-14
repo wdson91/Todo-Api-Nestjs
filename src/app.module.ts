@@ -12,7 +12,7 @@ import { config } from 'dotenv'
 @Module({
   imports: [ConfigModule.forRoot(),TodoModule,TypeOrmModule.forRoot({
   type: 'postgres',
-  host:`${process.env.DB_host}`,
+  host:'localhost',
   port: 5432,
   username:`${process.env.DB_username}`,
   password :`${process.env.DB_password}`,
