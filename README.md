@@ -30,6 +30,11 @@
 - Cadstro de Usuário por email e senha
 - Login com geração de token
 - Acesso as funcionalidades do 'todo' apenas com token
+- As tarefas podem ter os status:
+  - Open = A ser realizada
+  - WIP = Trabalho sendo feito
+  - COMPLETED = Tarefa Realizada
+ 
 
 ## Installation
 
