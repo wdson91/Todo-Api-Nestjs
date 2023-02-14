@@ -25,7 +25,7 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
+ To Do é um aplicativo de gerenciamento de tarefas,Ele permite que os usuários gerenciem suas tarefas,Primeiro devemos fazer um cadastro depois fazer o login,usando o token do login para acessar as rotas "todo"
 - Cadstro de Usuário por email e senha
 - Login com geração de token
 - Acesso as funcionalidades do 'todo' apenas com token
