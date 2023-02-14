@@ -31,7 +31,7 @@
 ```bash
 $ npm install
 
--- create a database named "nestjs"
+- create a database named "nestjs"
 ```
 
 ## Running the app
