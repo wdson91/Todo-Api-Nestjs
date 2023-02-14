@@ -24,16 +24,28 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
--
+ To Do é um aplicativo de gerenciamento de tarefas,Ele permite que os usuários gerenciem suas tarefas,Primeiro devemos fazer um cadastro depois fazer o login,usando o token do login para acessar as rotas "todo",um usuário só pode ver,editar e excluir os seus próprios todos.
+ 
+ Funcionalidades:
+- Cadstro de Usuário por email e senha
+- Login com geração de token
+- Acesso as funcionalidades do 'todo' apenas com token
 
 ## Installation
 
 ```bash
-$ npm install
+Rodar o comando $ npm install
 
-- create a database named "nestjs"
+- criar um banco postgresql
+- criar um arquivo .env :
+
+  DB_username= 
+  DB_password= 
+  DB_database=
+
+OU
+
+- Substituir os dados em APP.MODULES.TS
 ```
 
 ## Running the app
@@ -45,10 +57,12 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
 
+```
+##Swagger
+```
+Documentação Swagger em (http://localhost:3000/api)
+```
 
 
 ## Support
