@@ -39,8 +39,10 @@ export class AuthService {
 
         this.repo.create(user);
         try {
-            
-            return await this.repo.save(user)
+            await this.repo.save(user)
+            return {...user,
+            password:undefined,
+            salt:undefined} 
         } catch (error) {
             
             throw new InternalServerErrorException('Something went wrong,user was not created.')

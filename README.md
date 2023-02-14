@@ -26,12 +26,14 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+-
+
 ## Installation
 
 ```bash
 $ npm install
 
--- create a database named "nestjs"
+- create a database named "nestjs"
 ```
 
 ## Running the app

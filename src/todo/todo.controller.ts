@@ -12,7 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
 import { ApiTags, ApiProperty, ApiOperation, ApiBearerAuth, DocumentBuilder } from '@nestjs/swagger';
 
-@ApiTags('todos')
+@ApiTags('Todos')
 @ApiBearerAuth()
 @Controller('todos')
 @UseGuards(AuthGuard())
@@ -22,7 +22,7 @@ constructor(private todoService:TodoService){}
 
 
   @Get()
-  @ApiOperation({summary:"ovo"})
+  @ApiOperation({summary:"Get all user 'todos'"})
   getAllTodos( @User() user: UserEntity){ 
     
     return this.todoService.getAllTodos(user)
@@ -30,7 +30,7 @@ constructor(private todoService:TodoService){}
 
   
   @Post('create')
-  
+  @ApiOperation({summary:"Create a 'todo'"})
   createNewTodo(@Body(ValidationPipe) data:CreateTodoDto ,@User() user:UserEntity){
     const options = new DocumentBuilder().addBearerAuth();
 
@@ -38,6 +38,7 @@ constructor(private todoService:TodoService){}
 
   }
   @Patch(':id')
+  @ApiOperation({summary:"Update a todo'"})
   updateTodo(
     @Body('status', TodoStatusValidationPipe) status: TodoStatus,
     @Param('id') id: number,@User() user:UserEntity
@@ -46,6 +47,7 @@ constructor(private todoService:TodoService){}
   }
 
   @Delete(':id')
+  @ApiOperation({summary:"Delete a todo"})
   deleteTodo(@Param('id') id: number,@User() user:UserEntity) {
     return this.todoService.delete(id,user);
   }
