@@ -37,7 +37,7 @@ $ npm install
 ## Database Postgres
 
 - create a database named "nestjs"
-- 
+
 ## Running the app
 
 ```bash
