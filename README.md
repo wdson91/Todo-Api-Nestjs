@@ -26,12 +26,17 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+- Cadstro de Usuário por email e senha
+- Login com geração de token
+- Acesso ás funcionalidades do 'todo' apenas com token
+
+
 ## Installation
 
 ```bash
 $ npm install
 
-- create a database named "nestjs"
+
 
 ```
 ## Database Postgres
@@ -47,8 +52,6 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
 
