@@ -26,7 +26,9 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
--
+- Cadstro de Usuário por email e senha
+- Login com geração de token
+- Acesso ás funcionalidades do 'todo' apenas com token
 
 ## Installation
 
