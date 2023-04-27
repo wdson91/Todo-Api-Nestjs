@@ -10,18 +10,18 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([UserEntity]),
-  JwtModule.register({
-    secret: "LOijtrkljdklsufidsui12jkj43k21l4",
-    signOptions: { expiresIn: '1d' ,
-    algorithm:"HS512"},
-  }),
-  PassportModule.register({
-    defaultStrategy: 'jwt'
-  })
-],
-  providers: [AuthService,JwtCustomStrategy],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    JwtModule.register({
+      secret: 'LOijtrkljdklsufidsui12jkj43k21l4',
+      signOptions: { expiresIn: '1d', algorithm: 'HS512' },
+    }),
+    PassportModule.register({
+      defaultStrategy: 'jwt',
+    }),
+  ],
+  providers: [AuthService, JwtCustomStrategy],
   controllers: [AuthController],
-  exports: [PassportModule, JwtCustomStrategy]
+  exports: [PassportModule, JwtCustomStrategy],
 })
 export class AuthModule {}
