@@ -17,7 +17,7 @@ import { join } from 'path';
     TodoModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: `${process.env.DB_host}`,
       port: 5432,
       username: `${process.env.DB_username}`,
       password: `${process.env.DB_password}`,
