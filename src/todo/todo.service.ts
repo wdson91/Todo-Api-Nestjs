@@ -19,7 +19,7 @@ export class TodoService {
 
   async getAllTodos(user) {
     const query = await this.repo.createQueryBuilder('todo');
-    console.log('oi');
+
     query.where(`todo.userId = :userId`, { userId: user.id });
 
     try {

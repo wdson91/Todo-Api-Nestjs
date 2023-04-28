@@ -21,6 +21,7 @@ import {
   ApiBody,
   ApiQuery,
 } from '@nestjs/swagger';
+import { title } from 'process';
 
 @ApiTags('To-dos')
 @ApiBearerAuth()
@@ -38,10 +39,10 @@ export class TodoController {
   @Post('create')
   @ApiOperation({ summary: "Create a 'todo'" })
   createNewTodo(
-    @Body(ValidationPipe) data: CreateTodoDto,
-    @User() user: UserEntity,
+    @Body(ValidationPipe) title: CreateTodoDto,
+    @User() description: UserEntity,
   ) {
-    return this.todoService.createNewTodo(data, user);
+    return this.todoService.createNewTodo(title, description);
   }
 
   @Patch(':id')

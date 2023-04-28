@@ -1,3 +1,4 @@
+import { JwtCustomStrategy } from './jwt-custom.strategy';
 import { RegsiterUserDto } from './../DTO/registerUserDto';
 import { UserEntity } from './../Entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,16 +8,18 @@ import * as bcrypt from 'bcryptjs';
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { UserLoginDto } from 'src/DTO/userLogin.dto';
 import { JwtService } from '@nestjs/jwt';
+import { User } from './user.decorator';
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UserEntity) private repo: Repository<UserEntity>,
     private jwt: JwtService,
+    private jwtCustomStrategy: JwtCustomStrategy,
   ) {}
 
   async registerUser(regsiterUserDto: RegsiterUserDto) {
     const { name, email, password } = regsiterUserDto;
-
+    console.log(regsiterUserDto);
     const emailverify = await this.repo.findOne({
       where: {
         email,
@@ -58,7 +61,6 @@ export class AuthService {
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (isPasswordMatch) {
-      const jwtPayload = { email };
       const jwtToken = await this.jwt.signAsync(
         { email },
         { expiresIn: '1d', algorithm: 'HS512' },
