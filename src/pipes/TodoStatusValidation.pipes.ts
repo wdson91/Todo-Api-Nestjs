@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { TodoStatus } from 'src/Entity/todo.entity';
+
 import {
-  ArgumentMetadata,
+  
   BadRequestException,
   PipeTransform,
 } from '@nestjs/common';
+import { TodoStatus } from 'src/DTO/updateTodoDto';
 
 export class TodoStatusValidationPipe implements PipeTransform {
   readonly allowedStatus = [
@@ -12,7 +13,7 @@ export class TodoStatusValidationPipe implements PipeTransform {
     TodoStatus.WIP,
     TodoStatus.COMPLETED,
   ];
-  transform(value: any, metadata: ArgumentMetadata): any {
+  transform(value: any, ): any {
     value = value.toUpperCase();
     if (!this.isStatusValid(value)) {
       throw new BadRequestException(`${value} is an invalid status.`);

@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { User } from './user.decorator';
+
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../Entity/user.entity';
 import { Repository } from 'typeorm';
 import { UnauthorizedException } from '@nestjs/common';
-import { use } from 'passport';
+
 
 export class JwtCustomStrategy extends PassportStrategy(Strategy) {
   constructor(

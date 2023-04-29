@@ -1,3 +1,4 @@
+import { PrismaService } from './../prisma.service';
 import { JwtCustomStrategy } from './jwt-custom.strategy';
 import { RegsiterUserDto } from './../DTO/registerUserDto';
 import { UserEntity } from './../Entity/user.entity';
@@ -9,18 +10,21 @@ import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { UserLoginDto } from 'src/DTO/userLogin.dto';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './user.decorator';
+import { use } from 'passport';
+
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UserEntity) private repo: Repository<UserEntity>,
     private jwt: JwtService,
     private jwtCustomStrategy: JwtCustomStrategy,
+    private prisma: PrismaService,
   ) {}
 
   async registerUser(regsiterUserDto: RegsiterUserDto) {
     const { name, email, password } = regsiterUserDto;
-    console.log(regsiterUserDto);
-    const emailverify = await this.repo.findOne({
+
+    const emailverify = await this.prisma.users.findFirst({
       where: {
         email,
       },
@@ -31,16 +35,22 @@ export class AuthService {
     const hashed = await bcrypt.hashSync(password, 10);
     const salt = await bcrypt.getSalt(hashed);
 
-    const user = new UserEntity();
+    const user = {
+      email,
+      name,
+      hashed,
+      salt,
+    };
 
-    user.email = email;
-    user.name = name;
-    user.password = hashed;
-    user.salt = salt;
-
-    this.repo.create(user);
     try {
-      await this.repo.save(user);
+      await this.prisma.users.create({
+        data: {
+          email,
+          name,
+          password: hashed,
+          salt,
+        },
+      });
       return { ...user, password: undefined, salt: undefined };
     } catch (error) {
       throw new InternalServerErrorException(
@@ -52,7 +62,7 @@ export class AuthService {
   async loginUser(userLoginDto: UserLoginDto) {
     const { email, password } = userLoginDto;
 
-    const user = await this.repo.findOne({
+    const user = await this.prisma.users.findFirst({
       where: {
         email,
       },

@@ -1,3 +1,4 @@
+import { PrismaService } from './../prisma.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { AuthService } from './auth.service';
@@ -13,7 +14,10 @@ import { AuthGuard } from '@nestjs/passport';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private prismaService: PrismaService,
+  ) {}
 
   @Post('register')
   @ApiOperation({ summary: 'Create a register' })

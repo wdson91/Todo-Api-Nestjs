@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { PrismaService } from './prisma.service';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -28,6 +29,6 @@ import { join } from 'path';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

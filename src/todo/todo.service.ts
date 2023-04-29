@@ -1,7 +1,7 @@
 import { UserEntity } from './../Entity/user.entity';
 import { User } from './../auth/user.decorator';
 import { CreateTodoDto } from './../DTO/createTodoDto';
-import { TodoEntity, TodoStatus } from 'src/Entity/todo.entity';
+import { TodoEntity } from 'src/Entity/todo.entity';
 
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,20 +10,23 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common/exceptions';
+import { TodoStatus } from 'src/DTO/updateTodoDto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class TodoService {
   constructor(
     @InjectRepository(TodoEntity) private repo: Repository<TodoEntity>,
+    private prisma: PrismaService,
   ) {}
 
   async getAllTodos(user) {
-    const query = await this.repo.createQueryBuilder('todo');
-
-    query.where(`todo.userId = :userId`, { userId: user.id });
+    const todos = await this.prisma.todos.findMany({
+      where: { userId: 1 },
+    });
 
     try {
-      return await query.getMany();
+      return await todos;
     } catch (err) {
       throw new NotFoundException('No todo found');
     }
