@@ -21,7 +21,7 @@ export class AuthController {
 
   @Post('register')
   @ApiOperation({ summary: 'Create a register' })
-  registration(@Body(ValidationPipe) registerDto: RegsiterUserDto) {
+  registration(@Body() registerDto: RegsiterUserDto) {
     return this.authService.registerUser(registerDto);
   }
   @Post('login')
@@ -29,6 +29,7 @@ export class AuthController {
     summary: 'Login with email and password to receive jwt token',
   })
   signin(@Body(ValidationPipe) loginDto: UserLoginDto) {
+    console.log(loginDto);
     return this.authService.loginUser(loginDto);
   }
   @UseGuards(AuthGuard())

@@ -12,5 +12,5 @@ export class UpdateUserDto {
 export enum TodoStatus {
   OPEN,
   WIP,
-  COMPLETED,
+  COMPLETED
 }

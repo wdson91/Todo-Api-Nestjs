@@ -11,7 +11,7 @@ model todos {
   id          Int    @id(map: "PK_ca8cafd59ca6faaf67995344225") @default(autoincrement())
   title       String @db.VarChar
   description String @db.VarChar
-  status      String @db.VarChar
+  status      TodoStatus @default(OPEN)  
   userId      Int
   users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_4583be7753873b4ead956f040e3")
 }
@@ -23,4 +23,10 @@ model users {
   password String  @db.VarChar
   salt     String  @db.VarChar
   todos    todos[]
+}
+
+enum TodoStatus {
+  OPEN
+  WIP
+  COMPLETED
 }

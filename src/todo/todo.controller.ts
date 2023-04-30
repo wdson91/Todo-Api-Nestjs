@@ -27,9 +27,10 @@ import {
   ApiBody,
   ApiQuery,
 } from '@nestjs/swagger';
+import { TodoStatus } from '@prisma/client';
 
 @ApiTags('To-dos')
-//@ApiBearerAuth()
+@ApiBearerAuth()
 @Controller('todos')
 @UseGuards(AuthGuard())
 export class TodoController {
@@ -38,7 +39,6 @@ export class TodoController {
   @Get()
   @ApiOperation({ summary: "Get all user 'todos'" })
   getAllTodos(@User() user: any) {
-    console.log(user);
     return this.todoService.getAllTodos(user);
   }
 
@@ -55,11 +55,11 @@ export class TodoController {
   //@ApiOperation({summary:"Update a todo ,   Example: '{"status":"Completed"}' " })
   @ApiBody({ type: UpdateUserDto })
   updateTodo(
-    //@Body('status', TodoStatusValidationPipe) status: TodoStatus,
+    @Body('status') status: any,
     @Param('id') id: number,
     @User() user: UserEntity,
   ) {
-    //return this.todoService.update(id,  user);
+    return this.todoService.update(id, status, user);
   }
 
   @Delete(':id')

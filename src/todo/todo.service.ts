@@ -22,7 +22,7 @@ export class TodoService {
 
   async getAllTodos(user) {
     const todos = await this.prisma.todos.findMany({
-      where: { userId: 1 },
+      where: { userId: user.id },
     });
 
     try {
@@ -33,44 +33,61 @@ export class TodoService {
   }
 
   async createNewTodo(createTodoDto: CreateTodoDto, user: UserEntity) {
-    const todo = new TodoEntity();
     const { title, description } = createTodoDto;
 
-    todo.title = title;
-    todo.description = description;
-    todo.status = TodoStatus.OPEN;
-    todo.userId = user.id;
+    const todo = {
+      title,
+      description,
+      status: TodoStatus.OPEN,
+      userId: user.id,
+    };
 
-    this.repo.create(todo);
     try {
-      return await this.repo.save(todo);
+      return await this.prisma.todos.create({
+        data: {
+          title,
+          description,
+          userId: user.id,
+        },
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'Something went wrong, todo not created',
       );
     }
   }
-  async update(id: number, status: TodoStatus, user: UserEntity) {
-    const verificar = await this.repo.findOne({ where: { id } });
+  async update(id: number, status: any, user: UserEntity) {
+    id = Number(id);
+    const verificar = await this.prisma.todos.findUnique({ where: { id } });
 
     if (verificar.userId == user.id) {
       try {
-        await this.repo.update({ id, userId: user.id }, { status });
-        return this.repo.findOne({ where: { id } });
+        await this.prisma.todos.update({
+          where: { id: id },
+          data: { status: status },
+        });
+
+        return await this.prisma.todos.findUnique({ where: { id } });
       } catch (err) {
         throw new InternalServerErrorException('Something went wrong');
       }
     }
+
     throw new UnauthorizedException('Something went wrong');
   }
 
   async delete(id: number, user: UserEntity) {
-    const result = await this.repo.delete({ id, userId: user.id });
+    id = Number(id);
+    const verificar = await this.prisma.todos.findUnique({ where: { id } });
 
-    if (result.affected === 0) {
-      throw new UnauthorizedException();
-    } else {
-      return { success: true };
+    if (verificar.userId == user.id) {
+      try {
+        await this.prisma.todos.delete({ where: { id } });
+
+        return { success: true };
+      } catch (error) {
+        throw new InternalServerErrorException('Something went wrong');
+      }
     }
   }
 }

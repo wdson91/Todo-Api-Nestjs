@@ -6,7 +6,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.setGlobalPrefix('api');
-
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('To-do Api')
     .setDescription(
