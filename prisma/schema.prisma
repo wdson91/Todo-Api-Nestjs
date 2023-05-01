@@ -1,3 +1,5 @@
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,20 +10,20 @@ datasource db {
 }
 
 model todos {
-  id          Int    @id(map: "PK_ca8cafd59ca6faaf67995344225") @default(autoincrement())
-  title       String @db.VarChar
-  description String @db.VarChar
-  status      TodoStatus @default(OPEN)  
+  id          Int     @default(autoincrement()) @id
+  title       String 
+  description String 
+  status      TodoStatus @default(OPEN) 
   userId      Int
   users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_4583be7753873b4ead956f040e3")
 }
 
 model users {
-  id       Int     @id(map: "PK_a3ffb1c0c8416b9fc6f907b7433") @default(autoincrement())
-  name     String  @db.VarChar
-  email    String  @db.VarChar
-  password String  @db.VarChar
-  salt     String  @db.VarChar
+  id       Int      @default(autoincrement()) @id
+  name     String  
+  email    String  
+  password String  
+  salt     String  
   todos    todos[]
 }
 

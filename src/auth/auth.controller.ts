@@ -29,7 +29,6 @@ export class AuthController {
     summary: 'Login with email and password to receive jwt token',
   })
   signin(@Body(ValidationPipe) loginDto: UserLoginDto) {
-    console.log(loginDto);
     return this.authService.loginUser(loginDto);
   }
   @UseGuards(AuthGuard())

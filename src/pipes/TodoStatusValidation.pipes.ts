@@ -5,7 +5,8 @@ import {
   BadRequestException,
   PipeTransform,
 } from '@nestjs/common';
-import { TodoStatus } from 'src/DTO/updateTodoDto';
+import { TodoStatus } from '@prisma/client';
+
 
 export class TodoStatusValidationPipe implements PipeTransform {
   readonly allowedStatus = [

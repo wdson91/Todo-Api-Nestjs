@@ -3,31 +3,16 @@ import { UpdateUserDto } from './../DTO/updateTodoDto';
 import { User } from './../auth/user.decorator';
 import { UserEntity } from 'src/Entity/user.entity';
 
-import { TodoStatusValidationPipe } from './../pipes/TodoStatusValidation.pipes';
 import { CreateTodoDto } from './../DTO/createTodoDto';
 
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import {
-  Delete,
-  Param,
-  Patch,
-  UsePipes,
-  UseGuards,
-} from '@nestjs/common/decorators';
+import { Delete, Param, Patch, UseGuards } from '@nestjs/common/decorators';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { AuthGuard } from '@nestjs/passport';
 
-import {
-  ApiTags,
-  ApiProperty,
-  ApiOperation,
-  ApiBearerAuth,
-  DocumentBuilder,
-  ApiBody,
-  ApiQuery,
-} from '@nestjs/swagger';
-import { TodoStatus } from '@prisma/client';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+//import { TodoStatus2 } from '@prisma/client';
 
 @ApiTags('To-dos')
 @ApiBearerAuth()

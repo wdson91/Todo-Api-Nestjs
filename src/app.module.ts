@@ -2,7 +2,7 @@ import { TodoModule } from './todo/todo.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 

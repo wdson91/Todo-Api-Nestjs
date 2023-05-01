@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { ApiProperty } from '@nestjs/swagger';
+
 import { UserEntity } from './user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { TodoStatus } from 'src/DTO/updateTodoDto';
+import { TodoStatus } from '@prisma/client';
+
 
 @Entity('todos')
 export class TodoEntity {
@@ -15,7 +16,7 @@ export class TodoEntity {
   @Column()
   status: TodoStatus;
 
-  @ManyToOne((type) => UserEntity, (user) => user.todos)
+  @ManyToOne(() => UserEntity, (user) => user.todos)
   user: UserEntity;
 
   @Column()

@@ -9,8 +9,6 @@ import * as bcrypt from 'bcryptjs';
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { UserLoginDto } from 'src/DTO/userLogin.dto';
 import { JwtService } from '@nestjs/jwt';
-import { User } from './user.decorator';
-import { use } from 'passport';
 
 @Injectable()
 export class AuthService {
@@ -61,7 +59,7 @@ export class AuthService {
 
   async loginUser(userLoginDto: UserLoginDto) {
     const { email, password } = userLoginDto;
-    console.log(userLoginDto);
+
     const user = await this.prisma.users.findFirst({
       where: {
         email,
@@ -70,9 +68,11 @@ export class AuthService {
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
+    const payload = { name: user.name, email: user.email };
+
     if (isPasswordMatch) {
       const jwtToken = await this.jwt.signAsync(
-        { email },
+        { payload },
         { expiresIn: '1d', algorithm: 'HS512' },
       );
 
@@ -80,5 +80,8 @@ export class AuthService {
     } else {
       throw new UnauthorizedException('Invalid credentials.');
     }
+  }
+  async verifyToken(user) {
+    return user;
   }
 }

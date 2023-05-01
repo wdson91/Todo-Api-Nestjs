@@ -1,6 +1,5 @@
 import { JwtCustomStrategy } from './jwt-custom.strategy';
-import { AppModule } from './../app.module';
-import { ConfigModule } from '@nestjs/config';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';

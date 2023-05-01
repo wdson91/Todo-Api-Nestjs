@@ -5,8 +5,11 @@
 
 */
 -- CreateEnum
-CREATE TYPE "TodoStatus" AS ENUM ('OPEN', 'WIP', 'COMPLETED');
+CREATE TYPE "TodoStatus2" AS ENUM ('OPEN', 'WIP', 'COMPLETED');
 
 -- AlterTable
 ALTER TABLE "todos" DROP COLUMN "status",
-ADD COLUMN     "status" "TodoStatus" NOT NULL DEFAULT 'OPEN';
+ADD COLUMN     "status" "TodoStatus2" NOT NULL DEFAULT 'OPEN';
+
+-- DropEnum
+DROP TYPE "TodoStatus";
