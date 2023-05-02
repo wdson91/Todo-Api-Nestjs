@@ -29,7 +29,7 @@ export class TodoService {
   async createNewTodo(createTodoDto: CreateTodoDto, user: number) {
     const { title, description } = createTodoDto;
     user = Number(user);
-    const data = {
+    const todo = {
       title,
       description,
 
@@ -37,7 +37,7 @@ export class TodoService {
     }
     try {
       const create= await this.prisma.todos.create({
-        data
+        data:todo
     
       });
       return create
