@@ -33,7 +33,7 @@ export class TodoService {
       title,
       description,
 
-      userId: 1,
+      userId: user,
     }
     try {
       const create= await this.prisma.todos.create({
