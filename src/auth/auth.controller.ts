@@ -33,7 +33,7 @@ export class AuthController {
   }
   @UseGuards(AuthGuard('jwt'))
   @Post('verifyToken')
-  verifyToken(@User() user: any) {
+  verifyToken(@User() user: number) {
     return user;
   }
 }

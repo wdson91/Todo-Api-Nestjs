@@ -23,13 +23,13 @@ export class TodoController {
 
   @Get()
   @ApiOperation({ summary: "Get all user 'todos'" })
-  getAllTodos(@User() user: any) {
+  getAllTodos(@User() user: number) {
     return this.todoService.getAllTodos(user);
   }
 
   @Post('create')
   @ApiOperation({ summary: "Create a 'todo'" })
-  createNewTodo(@Body() title: CreateTodoDto, @User() description: any) {
+  createNewTodo(@Body() title: CreateTodoDto, @User() description: number) {
     return this.todoService.createNewTodo(title, description);
   }
 
@@ -39,14 +39,14 @@ export class TodoController {
   updateTodo(
     @Body('status') status: any,
     @Param('id') id: number,
-    @User() user: any,
+    @User() user: number,
   ) {
     return this.todoService.update(id, status, user);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a todo' })
-  deleteTodo(@Param('id') id: number, @User() user: any) {
+  deleteTodo(@Param('id') id: number, @User() user: number) {
     return this.todoService.delete(id, user);
   }
 }
