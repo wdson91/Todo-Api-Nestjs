@@ -3,12 +3,12 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { AuthService } from './auth.service';
 import { Controller } from '@nestjs/common';
-import { Post, Body, UseGuards, Headers } from '@nestjs/common/decorators';
+import { Post, Body, UseGuards } from '@nestjs/common/decorators';
 import { RegsiterUserDto } from 'src/DTO/registerUserDto';
 import { UserLoginDto } from 'src/DTO/userLogin.dto';
-import { UserEntity } from 'src/Entity/user.entity';
+
 import { User } from './user.decorator';
-import { use } from 'passport';
+
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Auth')
@@ -31,7 +31,7 @@ export class AuthController {
   signin(@Body(ValidationPipe) loginDto: UserLoginDto) {
     return this.authService.loginUser(loginDto);
   }
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @Post('verifyToken')
   verifyToken(@User() user: any) {
     return user;

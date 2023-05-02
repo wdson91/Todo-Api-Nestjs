@@ -1,10 +1,9 @@
 import { PrismaService } from './../prisma.service';
 import { JwtCustomStrategy } from './jwt-custom.strategy';
 import { RegsiterUserDto } from './../DTO/registerUserDto';
-import { UserEntity } from './../Entity/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+
 import * as bcrypt from 'bcryptjs';
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { UserLoginDto } from 'src/DTO/userLogin.dto';
@@ -13,7 +12,6 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(UserEntity) private repo: Repository<UserEntity>,
     private jwt: JwtService,
     private jwtCustomStrategy: JwtCustomStrategy,
     private prisma: PrismaService,
@@ -57,6 +55,11 @@ export class AuthService {
     }
   }
 
+  async teste(email) {
+    const user = await this.prisma.users.findFirst({ where: { email } });
+    console.log(user);
+  }
+
   async loginUser(userLoginDto: UserLoginDto) {
     const { email, password } = userLoginDto;
 
@@ -68,7 +71,7 @@ export class AuthService {
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
-    const payload = { name: user.name, email: user.email };
+    const payload = { name: user.name, email: user.email, id: user.id };
 
     if (isPasswordMatch) {
       const jwtToken = await this.jwt.signAsync(

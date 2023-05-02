@@ -5,14 +5,12 @@ import {
   BadRequestException,
   PipeTransform,
 } from '@nestjs/common';
-import { TodoStatus } from '@prisma/client';
+
 
 
 export class TodoStatusValidationPipe implements PipeTransform {
   readonly allowedStatus = [
-    TodoStatus.OPEN,
-    TodoStatus.WIP,
-    TodoStatus.COMPLETED,
+    
   ];
   transform(value: any, ): any {
     value = value.toUpperCase();

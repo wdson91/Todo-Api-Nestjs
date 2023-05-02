@@ -1,17 +1,16 @@
+import { PrismaService } from 'src/prisma.service';
 /* eslint-disable prettier/prettier */
-import { PrismaService } from './../prisma.service';
+
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../Entity/user.entity';
-import { Repository } from 'typeorm';
+
 import { UnauthorizedException } from '@nestjs/common';
 
 
 export class JwtCustomStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(UserEntity) private repo: Repository<UserEntity>,
-    private prismaService:PrismaService
+     
+    public prisma:PrismaService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -19,14 +18,15 @@ export class JwtCustomStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(Payload: { email: string }) {
-    const { email } = Payload;
+  async validate(Payload: { payload: { id: any; }; }) {
     
-    const user = await this.prismaService.users.findFirst({ where: { email} });
-
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
+    const  id  = Payload.payload.id;
+    
+    //const user = await this.prisma.users.findFirst({ where: { email} });
+    // console.log(user)
+    // if (!user) {
+    //   throw new UnauthorizedException();
+    // }
+    return Payload.payload.id;
   }
 }

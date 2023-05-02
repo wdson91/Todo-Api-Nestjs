@@ -1,13 +1,14 @@
-import { AuthModule } from './../auth/auth.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
-import { TodoEntity } from 'src/Entity/todo.entity';
 import { PrismaService } from 'src/prisma.service';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TodoEntity]), AuthModule],
+  imports: [PassportModule.register({
+    defaultStrategy: 'jwt',
+  }),],
   controllers: [TodoController],
   providers: [TodoService, PrismaService],
 })
