@@ -28,6 +28,7 @@ export class TodoService {
 
   async createNewTodo(createTodoDto: CreateTodoDto, user: number) {
     const { title, description } = createTodoDto;
+    user = Number(user);
     const data = {
       title,
       description,
