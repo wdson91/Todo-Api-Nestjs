@@ -36,10 +36,11 @@ export class TodoService {
       userId: 1,
     }
     try {
-      return await this.prisma.todos.create({
+      const create= await this.prisma.todos.create({
         data
     
       });
+      return create
     } catch (error) {
       throw new InternalServerErrorException(
         'Something went wrong, todo not created',
