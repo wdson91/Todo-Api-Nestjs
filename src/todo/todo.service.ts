@@ -28,15 +28,16 @@ export class TodoService {
 
   async createNewTodo(createTodoDto: CreateTodoDto, user: number) {
     const { title, description } = createTodoDto;
-    
+    const data = {
+      title,
+      description,
+
+      userId: user,
+    }
     try {
       return await this.prisma.todos.create({
-        data: {
-          title,
-          description,
-
-          userId: user,
-        },
+        data
+    
       });
     } catch (error) {
       throw new InternalServerErrorException(
