@@ -26,7 +26,7 @@ export class TodoService {
     }
   }
 
-  async createNewTodo(createTodoDto: CreateTodoDto, user: any) {
+  async createNewTodo(createTodoDto: CreateTodoDto, user: number) {
     const { title, description } = createTodoDto;
     
     try {
